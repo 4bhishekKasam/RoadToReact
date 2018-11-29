@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 //import Navigation from "./components/Navigation";
 import LandingPage from "./components/Landing";
+import SignUpPage from "./components/SignUp";
+
 
 class App extends Component {
   render() {
@@ -12,6 +14,7 @@ class App extends Component {
           {/* <Navigation /> */}
           <hr />
           <Route exact path={"/"} component={LandingPage} />
+          <Route exact path={"/signup"} component={SignUpPage} />
         </div>
       </Router>
     );
