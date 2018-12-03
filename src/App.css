@@ -2,3 +2,8 @@
   text-align: center;
   margin: 20px;
 }
+body{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

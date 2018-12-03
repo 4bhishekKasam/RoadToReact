@@ -6,7 +6,7 @@ const SignUpPage = ({ history }) => {
   return (
     <div>
       <h1>SignUp</h1>
-      <SignUpPage history={history} />
+      <SignUpForm history={history} />
     </div>
   );
 };
@@ -75,35 +75,47 @@ class SignUpForm extends Component {
           value={this.state.username}
           onChange={this.handleChange}
           placeholder="Enter Username"
-        />
+        />  <br/>
         <input
           type="email"
           id="email"
           value={this.state.email}
           onChange={this.handleChange}
           placeholder="Enter Email"
-        />
+        /> <br/>
         <input
           type="password"
           id="passwordOne"
           value={this.state.passwordOne}
           onChange={this.handleChange}
           placeholder="Enter Password"
-        />
+        />  <br/>
         <input
           type="password"
           id="passwordTwo"
           value={this.state.passwordTwo}
           onChange={this.handleChange}
           placeholder="Confirm Password"
-        />
+        /> <br/>
         <button type="submit" disabled={isInvalid}>
           Sign Up
         </button>
+        <br/>
         {error && <p>{error.message}</p>}
       </form>
     );
   }
 }
 
-export default SignUpForm;
+const SignUpLink = () => {
+  return (
+    <p>
+      Don't have an account?
+      <Link to={"/signup"}>Sign Up</Link>
+    </p>
+  );
+};
+
+export default withRouter(SignUpPage);
+
+export { SignUpForm, SignUpLink };
