@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { compose } from "recompose";
 import { SignUpLink } from "../SignUp";
-import { auth, db } from "../../firebase/index";
+import { PasswordForgetLink } from "../PasswordForget";
+import { withFirebase } from "../../firebase";
 
-const SignInPage = ({ history }) => {
+const SignInPage = () => {
   return (
     <div>
       <h1>Sign In</h1>
-      <SignInForm history={history} />
+      <SignInForm />
+      <PasswordForgetLink />
       <SignUpLink />
     </div>
   );
@@ -20,11 +22,11 @@ const initialState = {
   error: null
 };
 
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value
-});
+// const updateByPropertyName = (propertyName, value) => () => ({
+//   [propertyName]: value
+// });
 
-class SignInForm extends Component {
+class SignInFormBase extends Component {
   constructor(props) {
     super(props);
     this.state = { ...initialState };
@@ -41,16 +43,16 @@ class SignInForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    const { history } = this.props;
-    auth
+
+    this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState(() => ({ ...initialState }));
         console.log("signed in");
-        history.push("signin");
+        this.props.history.push("/home");
       })
       .catch(error => {
-        this.setState(updateByPropertyName("error", error));
+        this.setState({ error });
       });
   };
 
@@ -84,5 +86,20 @@ class SignInForm extends Component {
   }
 }
 
-export default withRouter(SignInPage);
-export { SignInForm };
+const SignInLink = () => {
+  return (
+    <p>
+      Already a user?
+      <Link to={"/signin"}>Sign In</Link>
+    </p>
+  );
+};
+
+const SignInForm = compose(
+  withRouter,
+  withFirebase
+)(SignInFormBase);
+
+export default SignInPage;
+
+export { SignInForm, SignInLink };
