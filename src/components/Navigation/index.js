@@ -42,7 +42,7 @@ const NavigationAuth = ({ authUser }) => (
 const NavigationNonAuth = () => (
   <header className="header">
     <h1 className="logo">
-      <Link to="/">Flexbox</Link>
+      <Link to="/">UserInfo</Link>
     </h1>
     <ul className="main-nav">
       <li>
